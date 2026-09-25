@@ -42,7 +42,7 @@
 3. upstream 自带的 `ci_cd.yml` 是作者的发版流程，在 fork 里只会因缺少签名证书而失败，所以已加了 `if: github.repository == 'lwouis/alt-tab-macos'`，在 fork 中自动跳过。
 4. 打开 **Actions → archive releases → Run workflow**。几分钟后，fork 的 Releases 页面就会出现这 10 个版本，每个都附带 zip。
 
-之后每周一会自动检查一次；想立即归档，也可以随时手动运行。
+之后每周一会自动检查一次；修改 `releases.json` 或这个 workflow 并推送到 `master` 时也会立即运行；也可以随时手动运行。
 
 ## 以后如何安装旧版本
 
