@@ -3,6 +3,9 @@
 # Binaries go to Release assets, never into git history.
 name: archive releases
 on:
+  push:
+    branches: [master]
+    paths: [archive/releases.json, .github/workflows/archive_releases.yml]
   workflow_dispatch:
     inputs:
       count:
