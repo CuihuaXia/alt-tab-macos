@@ -6,7 +6,7 @@
 
 | 内容 | 放在哪里 | 为什么 |
 | --- | --- | --- |
-| 安装包 `AltTab-<版本>.zip` | 本 fork 的 **GitHub Releases**（tag 与 upstream 相同，如 `v11.7.1`） | 二进制不进 git history，不会让仓库越来越大；单个文件上限 2 GB，不占 Git LFS 配额 |
+| 安装包 `AltTab-<版本>.zip` | 本 fork 的 **GitHub Releases**（tag 为 `archive-v<版本>`，如 `archive-v11.7.1`） | 二进制不进 git history，不会让仓库越来越大；单个文件上限 2 GB，不占 Git LFS 配额 |
 | 版本清单 `releases.json` | git（本目录） | 每个版本的发布时间、最低 macOS、大小、SHA-256、Sparkle 签名、fork 和 upstream 两个下载地址 |
 | 校验文件 `SHA256SUMS` | git（本目录） | 可以直接用 `shasum -a 256 -c SHA256SUMS` 校验 |
 | 工具 `archive.py` | git（本目录） | 下载、校验、安装、更新清单；只用 Python 3 标准库 |
@@ -16,6 +16,7 @@
 
 - AltTab 官方只发布 `.zip`（里面是已签名、已公证的 `AltTab.app`），**没有 `.dmg`**，所以归档的就是这个官方 zip，原样保存，SHA-256 与 upstream 完全一致。
 - 没有用 Git LFS：fork 的 LFS 对象会占用你自己的 LFS 存储和带宽配额，而且 LFS 文件依然和代码仓库绑定；Release assets 没有这些限制，下载链接也最直观。
+- tag 没有沿用 upstream 的 `v11.7.1`：GitHub 不允许 workflow 自动创建指向“workflow 文件与 master 不同”的提交的 tag，所以 `archive-v…` tag 打在归档当时的 master 上，每个 Release 的说明里写明了对应的 upstream 源码提交。
 - 归档只增不删：upstream 发布新版本后，旧版本仍保留在 fork 的 Releases 和 `releases.json` 里。
 
 ## 当前已记录的版本
