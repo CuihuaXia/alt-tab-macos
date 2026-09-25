@@ -31,25 +31,24 @@ jobs:
       - name: Upload missing releases
         run: |
           mkdir -p dist
-          jq -r '.releases[] | [.version, .tag, .asset, .sha256, .minimum_macos, .published_at] | @tsv' archive/releases.json |
-          while IFS=$'\t' read -r version tag asset sha256 min_macos published; do
-            if gh release view "$tag" --repo "$REPO" --json assets -q '.assets[].name' 2>/dev/null | grep -qx "$asset"; then
-              echo "$tag already archived"; continue
+          jq -r '.releases[] | [.version, .tag, .archive_tag, .asset, .sha256, .minimum_macos, .published_at] | @tsv' archive/releases.json |
+          while IFS=$'\t' read -r version tag archive_tag asset sha256 min_macos published; do
+            if gh release view "$archive_tag" --repo "$REPO" --json assets -q '.assets[].name' 2>/dev/null | grep -qx "$asset"; then
+              echo "$archive_tag already archived"; continue
             fi
-            if ! gh api "repos/$REPO/git/ref/tags/$tag" >/dev/null 2>&1; then
-              sha=$(git ls-remote "https://github.com/$UPSTREAM" "refs/tags/$tag" "refs/tags/$tag^{}" | tail -1 | cut -f1)
-              gh api "repos/$REPO/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null
-            fi
+            commit=$(git ls-remote "https://github.com/$UPSTREAM" "refs/tags/$tag" "refs/tags/$tag^{}" | tail -1 | cut -f1)
             python3 archive/archive.py download "$version" --dir dist
-            notes="Archived copy of upstream [AltTab $version](https://github.com/$UPSTREAM/releases/tag/$tag), published upstream on $published.
+            notes="Archived copy of upstream [AltTab $version](https://github.com/$UPSTREAM/releases/tag/$tag), published upstream on $published and built from upstream commit $UPSTREAM@$commit.
 
           - Requires macOS $min_macos or newer
-          - SHA-256: \`$sha256\`
-          - Install: unzip, then move \`AltTab.app\` to /Applications. Or run \`python3 archive/archive.py install $version\`."
-            if gh release view "$tag" --repo "$REPO" >/dev/null 2>&1; then
-              gh release upload "$tag" "dist/$asset" --repo "$REPO"
+          - SHA-256: \`$sha256\` (identical to the upstream asset)
+          - Install: unzip, then move \`AltTab.app\` to /Applications. Or run \`python3 archive/archive.py install $version\`.
+
+          The \`$archive_tag\` tag marks when this copy was archived, not the source; see the upstream commit above."
+            if gh release view "$archive_tag" --repo "$REPO" >/dev/null 2>&1; then
+              gh release upload "$archive_tag" "dist/$asset" --repo "$REPO"
             else
-              gh release create "$tag" "dist/$asset" --repo "$REPO" --verify-tag --title "AltTab $version (archived)" --notes "$notes"
+              gh release create "$archive_tag" "dist/$asset" --repo "$REPO" --target "$GITHUB_SHA" --title "AltTab $version (archived)" --notes "$notes"
             fi
           done
       - name: Commit manifest changes

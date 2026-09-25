@@ -7,7 +7,11 @@ Upstream (lwouis/alt-tab-macos) ships every release as a single notarized
 minimum macOS and EdDSA signature, so it is the source of truth for the manifest.
 
 The binaries are never committed to git: they are re-uploaded as assets of
-GitHub Releases on the fork (see .github/workflows/archive_releases.yml).
+GitHub Releases on the fork (see .github/workflows/archive_releases.yml), tagged
+`archive-v<version>`. Upstream's own `v<version>` tags can't be recreated there:
+GitHub refuses a workflow token (and this repo's automation) a ref whose commit
+has different .github/workflows files than the default branch, so the archive
+tags sit on the default branch and the release notes name the upstream commit.
 `archive/releases.json` and `archive/SHA256SUMS` are the only files in git.
 
 Only the Python 3 standard library is used, so it runs on stock macOS and on CI.
@@ -76,6 +80,7 @@ def parse_appcast(xml_bytes):
         items.append({
             "version": version,
             "tag": f"v{version}",
+            "archive_tag": f"archive-v{version}",
             "published_at": pub.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "minimum_macos": item.findtext(f"{SPARKLE}minimumSystemVersion"),
             "asset": enc.get("url").rsplit("/", 1)[1],
@@ -112,9 +117,10 @@ def cmd_manifest(args):
         print(f"added {rel['version']}  {rel['sha256']}")
     repo = m.get("archive_repo")
     for rel in known.values():
+        rel["archive_tag"] = f"archive-v{rel['version']}"
         if repo:
-            rel["archive_url"] = f"https://github.com/{repo}/releases/download/{rel['tag']}/{rel['asset']}"
-            rel["archive_release_page"] = f"https://github.com/{repo}/releases/tag/{rel['tag']}"
+            rel["archive_url"] = f"https://github.com/{repo}/releases/download/{rel['archive_tag']}/{rel['asset']}"
+            rel["archive_release_page"] = f"https://github.com/{repo}/releases/tag/{rel['archive_tag']}"
     m["releases"] = sorted(known.values(), key=lambda r: version_key(r["version"]), reverse=True)
     if json.dumps(m, sort_keys=True) != before:
         m["updated_at"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
