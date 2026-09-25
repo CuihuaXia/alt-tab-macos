@@ -39,7 +39,7 @@
 
 1. 把这些文件合并进 fork 的默认分支 `master`（定时任务和手动运行按钮只认默认分支上的 workflow）。
 2. 在 fork 的 **Settings → Actions → General** 里允许运行 Actions，并在 “Workflow permissions” 选 **Read and write permissions**。
-3. 在 **Actions** 页面里把 upstream 自带的 `ci_cd.yml` 这个 workflow **Disable**：它是作者的发版流程，在 fork 里只会因缺少签名证书而失败。
+3. upstream 自带的 `ci_cd.yml` 是作者的发版流程，在 fork 里只会因缺少签名证书而失败，所以已加了 `if: github.repository == 'lwouis/alt-tab-macos'`，在 fork 中自动跳过。
 4. 打开 **Actions → archive releases → Run workflow**。几分钟后，fork 的 Releases 页面就会出现这 10 个版本，每个都附带 zip。
 
 之后每周一会自动检查一次；想立即归档，也可以随时手动运行。
@@ -71,4 +71,4 @@ python3 archive/archive.py install 11.6.1       # 下载、校验、验证签名
 ## 维护
 
 - 改保留数量：手动运行 workflow 时填写 `count`，或在本地运行 `python3 archive/archive.py manifest --count 20 --archive-repo CuihuaXia/alt-tab-macos`。
-- 同步 upstream：fork 页面上的 “Sync fork” 照常使用即可；本方案只新增文件，不修改 upstream 的文件，一般不会冲突。
+- 同步 upstream：fork 页面上的 “Sync fork” 照常使用即可。本方案除了 `ci_cd.yml` 里新增的一行 `if:` 外只新增文件；若哪天同步时这一行冲突，保留这一行即可。
