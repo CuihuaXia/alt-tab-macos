@@ -3,6 +3,21 @@
   "archive_repo": "CuihuaXia/alt-tab-macos",
   "releases": [
     {
+      "version": "11.9.2",
+      "tag": "v11.9.2",
+      "archive_tag": "archive-v11.9.2",
+      "published_at": "2026-10-13T20:21:54Z",
+      "minimum_macos": "12.0",
+      "asset": "AltTab-11.9.2.zip",
+      "size": 5685225,
+      "sparkle_ed_signature": "p6ZEPyedKEB4DWW3V5g9b7FAzqENznTSttjgIZB0tOtnNkqudXOgHAP9H5+kfMKIkcb2ELcny4wv0mpINsv0Ag==",
+      "upstream_url": "https://github.com/lwouis/alt-tab-macos/releases/download/v11.9.2/AltTab-11.9.2.zip",
+      "upstream_release_page": "https://github.com/lwouis/alt-tab-macos/releases/tag/v11.9.2",
+      "sha256": "a80a47fee68b1d58282a3f204c80fe2682252ed169c5d73a0a276fd0adf90c75",
+      "archive_url": "https://github.com/CuihuaXia/alt-tab-macos/releases/download/archive-v11.9.2/AltTab-11.9.2.zip",
+      "archive_release_page": "https://github.com/CuihuaXia/alt-tab-macos/releases/tag/archive-v11.9.2"
+    },
+    {
       "version": "11.9.1",
       "tag": "v11.9.1",
       "archive_tag": "archive-v11.9.1",
@@ -198,5 +213,5 @@
       "archive_tag": "archive-v11.4.0"
     }
   ],
-  "updated_at": "2026-10-12T03:49:36Z"
+  "updated_at": "2026-10-19T03:37:40Z"
 }
