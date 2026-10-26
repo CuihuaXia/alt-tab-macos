@@ -3,6 +3,36 @@
   "archive_repo": "CuihuaXia/alt-tab-macos",
   "releases": [
     {
+      "version": "11.10.1",
+      "tag": "v11.10.1",
+      "archive_tag": "archive-v11.10.1",
+      "published_at": "2026-10-23T21:56:58Z",
+      "minimum_macos": "12.0",
+      "asset": "AltTab-11.10.1.zip",
+      "size": 4831056,
+      "sparkle_ed_signature": "LP5MBCSz2B1SUMlHR9+RGUbx4RR29X8uQTOZMkdOTOQjVK8xdO6hXKKx+/9L8m3cKVnzNA1hhfTK5FS4H38LBA==",
+      "upstream_url": "https://github.com/lwouis/alt-tab-macos/releases/download/v11.10.1/AltTab-11.10.1.zip",
+      "upstream_release_page": "https://github.com/lwouis/alt-tab-macos/releases/tag/v11.10.1",
+      "sha256": "aa353197537ccfd378dd4a7ff43030561ce7c62267dd0b31b385691b0e7f594c",
+      "archive_url": "https://github.com/CuihuaXia/alt-tab-macos/releases/download/archive-v11.10.1/AltTab-11.10.1.zip",
+      "archive_release_page": "https://github.com/CuihuaXia/alt-tab-macos/releases/tag/archive-v11.10.1"
+    },
+    {
+      "version": "11.10.0",
+      "tag": "v11.10.0",
+      "archive_tag": "archive-v11.10.0",
+      "published_at": "2026-10-22T21:26:14Z",
+      "minimum_macos": "12.0",
+      "asset": "AltTab-11.10.0.zip",
+      "size": 4828530,
+      "sparkle_ed_signature": "CvQD6AuGHmwK8y2NQ5mAnr5s4m/sii5yye/Irpmc1mGOzc7qhwdbSF5KQiysGbnVieC7M9Eu4W3eIGPh0N00AA==",
+      "upstream_url": "https://github.com/lwouis/alt-tab-macos/releases/download/v11.10.0/AltTab-11.10.0.zip",
+      "upstream_release_page": "https://github.com/lwouis/alt-tab-macos/releases/tag/v11.10.0",
+      "sha256": "579a68222ab181bf56c64d1154aa47c9d623a921e5b13da9398b24e209892e23",
+      "archive_url": "https://github.com/CuihuaXia/alt-tab-macos/releases/download/archive-v11.10.0/AltTab-11.10.0.zip",
+      "archive_release_page": "https://github.com/CuihuaXia/alt-tab-macos/releases/tag/archive-v11.10.0"
+    },
+    {
       "version": "11.9.2",
       "tag": "v11.9.2",
       "archive_tag": "archive-v11.9.2",
@@ -213,5 +243,5 @@
       "archive_tag": "archive-v11.4.0"
     }
   ],
-  "updated_at": "2026-10-19T03:37:40Z"
+  "updated_at": "2026-10-26T03:40:20Z"
 }
